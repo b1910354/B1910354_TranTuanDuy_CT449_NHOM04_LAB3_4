@@ -1,6 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+// Every Vue application starts by creating a new application instance with the createApp function:
+import { createApp } from 'vue';
 
-import './assets/main.css'
+// import the root component App from a single-file component.
+import App from './App.vue';
 
-createApp(App).mount('#app')
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import './assets/main.css';
+
+import router from "./router";
+
+createApp(App).use(router).mount("#app");
