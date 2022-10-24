@@ -2,6 +2,14 @@
   <div class="page row">
     <div class="col-md-10">
       <InputSearch v-model="searchText" />
+      <!--  
+        Khi user gõ hoặc nhấn enter hoặc nhấn search thì
+        v-model sẽ bắt được sự kiện là component con (InputSearch)
+        đang phát lên một tín hiệu rằng có một sự kiện đang diễn ra.
+        Lúc này tiến hành cập nhật searchText
+        => activeIndex = -1 (loại bỏ các liên hệ đang được chọn trong list)
+        chạy tiếp những dòng lệnh phía sau
+      -->
     </div>
     <div class="mt-3 col-md-6">
       <h4>
@@ -11,8 +19,14 @@
       <ContactList
         v-if="filteredContactsCount > 0"
         :contacts="filteredContacts"
-        v-model:activeIndex="activeIndex"
+        v-model:activeIndex1="activeIndex"
       />
+      <!-- 
+        tìm kiếm và trả về liên hệ cần tìm 
+        nếu như mà không có liên hệ nào phù hợp với từ khoá
+        thì sẽ trả về v-else
+        chạy tiep
+      -->
       <p v-else>Không có liên hệ nào.</p>
       <div class="mt-3 row justify-content-around align-items-center">
         <button class="btn btn-sm btn-primary" @click="refreshList()">
@@ -84,9 +98,9 @@ export default {
     // Trả về các contact có chứa thông tin cần tìm kiếm.
     filteredContacts() {
       if (!this.searchText) return this.contacts;
-      return this.contacts.filter((_contact, index) =>
-        this.contactStrings[index].includes(this.searchText)
-      );
+      return this.contacts.filter((_contact, index) => {
+        return this.contactStrings[index].includes(this.searchText)
+      });
     },
     activeContact() {
       if (this.activeIndex < 0) return null;

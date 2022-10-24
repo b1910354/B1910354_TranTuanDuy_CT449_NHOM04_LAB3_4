@@ -11,4 +11,5 @@ import './assets/main.css';
 
 import router from "./router";
 
+// An application instance won't render anything until its .mount() method is called
 createApp(App).use(router).mount("#app");
